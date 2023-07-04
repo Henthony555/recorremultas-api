@@ -22,14 +22,12 @@ public class MultaService extends GenericService {
         return repository.save(multa);
     }
 
-    @Transactional
     public List<Multa> listAll() {
 
         return repository.findAll();
 
     }
 
-    @Transactional
     public Multa listById(Long id) {
 
         return repository.findById(id).get();
