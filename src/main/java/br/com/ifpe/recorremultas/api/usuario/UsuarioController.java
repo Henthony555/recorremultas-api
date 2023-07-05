@@ -23,41 +23,66 @@ import br.com.ifpe.recorremultas.util.entity.GenericController;
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController extends GenericController {
-    
+
     @Autowired
-   private UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
-   @PostMapping
-   public ResponseEntity<Usuario> save(@RequestBody @Valid UsuarioRequest request) {
+    @PostMapping
+    public ResponseEntity<Usuario> save(@RequestBody @Valid UsuarioRequest request) {
 
-       Usuario usuario = usuarioService.save(request.build());
-       return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
-   }
-   @GetMapping
-   public List<Usuario> listarTodos() {
-  
-       return usuarioService.listarTodos();
-   }
+        Usuario usuario = usuarioService.save(request.build());
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
+    }
 
-   @GetMapping("/{id}")
-   public Usuario obterPorID(@PathVariable Long id) {
+    @GetMapping
+    public List<Usuario> listarTodos() {
 
-       return usuarioService.obterPorID(id);
-   }
+        return usuarioService.listarTodos();
+    }
 
-   
-   @PutMapping("/{id}")
-   public ResponseEntity<Usuario> update(@PathVariable("id") Long id, @RequestBody UsuarioRequest request) {
+    @GetMapping("/{id}")
+    public Usuario obterPorID(@PathVariable Long id) {
 
-    usuarioService.update(id, request.build());
-       return ResponseEntity.ok().build();
-   }
+        return usuarioService.obterPorID(id);
+    }
 
-   @DeleteMapping("/{id}")
-   public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> update(@PathVariable("id") Long id, @RequestBody UsuarioRequest request) {
 
-    usuarioService.delete(id);
-       return ResponseEntity.ok().build();
-   }
+        usuarioService.update(id, request.build());
+        return ResponseEntity.ok().build();
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+
+        usuarioService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+{/* 
+
+    @PostMapping("/peticao/{usuarioId}")
+    public ResponseEntity<Peticao> adicionarPeticao(@PathVariable("usuarioId") Long usuarioId,
+            @RequestBody @Valid PeticaoRequest request) {
+
+        Peticao peticao = usuarioService.adicionarPeticao(usuarioId, request.build());
+        return new ResponseEntity<Peticao>(peticao, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/peticao/{peticaoId}")
+    public ResponseEntity<Peticao> atualizarPeticao(@PathVariable("peticaoId") Long peticaoId,
+            @RequestBody PeticaoRequest request) {
+
+        Peticao peticao = usuarioService.atualizarPeticao(peticaoId, request.build());
+        return new ResponseEntity<Peticao>(peticao, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/peticao/{peticaoId}")
+    public ResponseEntity<Void> removerPeticao(@PathVariable("peticaoId") Long peticaoId) {
+
+        usuarioService.removerPeticao(peticaoId);
+        return ResponseEntity.noContent().build();
+    }
+*/}
 }

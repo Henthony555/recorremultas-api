@@ -26,7 +26,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario extends EntidadeAuditavel {
-    
+    {/*     @OneToMany(mappedBy = "usuario", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Peticao> peticoes; 
+    */}
+
     @Column
     private String nomeCompleto;
  

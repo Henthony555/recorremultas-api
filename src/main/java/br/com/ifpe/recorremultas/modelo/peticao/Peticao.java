@@ -1,4 +1,5 @@
 package br.com.ifpe.recorremultas.modelo.peticao;
+
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -14,8 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Entity
 @Table(name = "Peticao")
 @Where(clause = "habilitado = true")
@@ -25,8 +24,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Peticao extends EntidadeAuditavel  {
-
+public class Peticao extends EntidadeAuditavel {
+   
+   {/* 
+   @JsonIgnore
+   @ManyToOne
+   private Usuario usuario;
+   */}
    @Column
    private String nomeCompleto;
    @Column
