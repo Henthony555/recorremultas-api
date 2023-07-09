@@ -2,6 +2,9 @@ package br.com.ifpe.recorremultas.api.peticao;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
@@ -16,6 +19,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PeticaoRequest {
 
+   @NotNull(message = "O Nome é de preenchimento obrigatório")
+   @NotBlank(message = "O Nome é de preenchimento obrigatório")
    private String nomeCompleto;
 
    private String nacionalidade;
@@ -28,14 +33,20 @@ public class PeticaoRequest {
 
    private String orgaoExpeditor;
 
+   @NotNull(message = "O CPF é de preenchimento obrigatório")
+   @NotBlank(message = "O CPF é de preenchimento obrigatório")
    private String cpf;
 
    private String telefone;
 
    private String enderecoCompleto;
 
+   @NotNull(message = "A Marca/Modelo é de preenchimento obrigatório")
+   @NotBlank(message = "A Marca/Modelo é de preenchimento obrigatório")
    private String marcaModelo;
 
+   @NotNull(message = "A placa é de preenchimento obrigatório")
+   @NotBlank(message = "A placa é de preenchimento obrigatório")
    private String placa;
 
    private String renavam;
@@ -49,6 +60,8 @@ public class PeticaoRequest {
 
    private String notificacao;
 
+   @NotNull(message = "A justificativa é de preenchimento obrigatório")
+   @NotBlank(message = "A justificativa é de preenchimento obrigatório")
    private String justificativaCancelamento;
 
    public Peticao build() {

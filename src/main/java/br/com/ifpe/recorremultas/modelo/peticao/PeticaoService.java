@@ -1,13 +1,16 @@
 package br.com.ifpe.recorremultas.modelo.peticao;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import br.com.ifpe.recorremultas.util.entity.GenericService;
+import br.com.ifpe.recorremultas.util.exception.EntidadeNaoEncontradaException;
 
 @Service
 public class PeticaoService extends GenericService {
@@ -29,7 +32,13 @@ public class PeticaoService extends GenericService {
 
     public Peticao obterPorID(Long id) {
 
-        return repository.findById(id).get();
+       Optional<Peticao> consulta = repository.findById(id);
+    
+        if (consulta.isPresent()) {
+            return consulta.get();
+        } else {
+            throw new EntidadeNaoEncontradaException("Peticao", id);
+        }
     }
 
     @Transactional

@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ifpe.recorremultas.modelo.agencias.Agencias;
 import br.com.ifpe.recorremultas.modelo.agencias.AgenciasService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/agencias")
@@ -27,6 +30,7 @@ public class AgenciasController extends GenericController {
     @Autowired
     private AgenciasService agenciasService;
 
+    @ApiOperation(value = "Serviço responsável por salvar uma agência no sistema.")
     @PostMapping
     public ResponseEntity<Agencias> save(@RequestBody @Valid AgenciasRequest request) {
 
@@ -34,12 +38,21 @@ public class AgenciasController extends GenericController {
         return new ResponseEntity<Agencias>(agencias, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Serviço responsável por listar todas as agências do sistema.")
     @GetMapping
     public List<Agencias> listarTodos() {
 
         return agenciasService.listarTodos();
     }
 
+    @ApiOperation(value = "Serviço responsável por obter uma agência referente ao Id passado na URL.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Retorna a agência."),
+        @ApiResponse(code = 401, message = "Acesso não autorizado."),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+        @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+        @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+   })
     @GetMapping("/{id}")
     public Agencias obterPorID(@PathVariable Long id) {
 

@@ -1,6 +1,11 @@
 package br.com.ifpe.recorremultas.api.usuario;
 
 import java.util.List;
+import java.util.Optional;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import javax.validation.Valid;
 
@@ -16,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifpe.recorremultas.api.peticao.PeticaoRequest;
+import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
+import br.com.ifpe.recorremultas.modelo.peticao.PeticaoService;
 import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import br.com.ifpe.recorremultas.modelo.usuario.UsuarioService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
+
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -27,6 +36,10 @@ public class UsuarioController extends GenericController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private PeticaoService peticaoService;
+
+    @ApiOperation(value = "Serviço responsável por salvar um usuario no sistema.")
     @PostMapping
     public ResponseEntity<Usuario> save(@RequestBody @Valid UsuarioRequest request) {
 
@@ -34,12 +47,21 @@ public class UsuarioController extends GenericController {
         return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Serviço responsável por listar todos os usuarios do sistema.")
     @GetMapping
     public List<Usuario> listarTodos() {
 
         return usuarioService.listarTodos();
     }
 
+    @ApiOperation(value = "Serviço responsável por obter um usuario referente ao Id passado na URL.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Retorna  o usuario."),
+        @ApiResponse(code = 401, message = "Acesso não autorizado."),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+        @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+        @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+   })
     @GetMapping("/{id}")
     public Usuario obterPorID(@PathVariable Long id) {
 
@@ -60,7 +82,7 @@ public class UsuarioController extends GenericController {
         return ResponseEntity.ok().build();
     }
 
-{/* 
+
 
     @PostMapping("/peticao/{usuarioId}")
     public ResponseEntity<Peticao> adicionarPeticao(@PathVariable("usuarioId") Long usuarioId,
@@ -84,5 +106,5 @@ public class UsuarioController extends GenericController {
         usuarioService.removerPeticao(peticaoId);
         return ResponseEntity.noContent().build();
     }
-*/}
+
 }

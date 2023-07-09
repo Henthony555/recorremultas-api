@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ifpe.recorremultas.modelo.multa.Multa;
 import br.com.ifpe.recorremultas.modelo.multa.MultaService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/multa")
@@ -27,6 +30,7 @@ public class MultaController extends GenericController {
    @Autowired
    private MultaService multaService;
 
+   @ApiOperation(value = "Serviço responsável por salvar uma multa no sistema.")
    @PostMapping
    public ResponseEntity<Multa> save(@RequestBody @Valid MultaRequest request) {
 
@@ -34,12 +38,21 @@ public class MultaController extends GenericController {
        return new ResponseEntity<Multa>(Multa, HttpStatus.CREATED);
    }
 
+   @ApiOperation(value = "Serviço responsável por listar todas as multas do sistema.")
    @GetMapping
    public List<Multa> listAll() {
     return multaService.listAll();       
        
    }
 
+    @ApiOperation(value = "Serviço responsável por obter uma multa referente ao Id passado na URL.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Retorna a multa."),
+        @ApiResponse(code = 401, message = "Acesso não autorizado."),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+        @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+        @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+   })
    @GetMapping ("/{id}")
    public Multa listById(@PathVariable Long id) {
     return multaService.listById(id);       

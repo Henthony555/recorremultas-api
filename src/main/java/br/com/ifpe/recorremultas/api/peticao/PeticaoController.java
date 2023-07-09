@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
 import br.com.ifpe.recorremultas.modelo.peticao.PeticaoService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/peticao")
@@ -27,6 +30,7 @@ public class PeticaoController extends GenericController {
    @Autowired
    private PeticaoService peticaoService;
 
+   @ApiOperation(value = "Serviço responsável por salvar uma petição no sistema.")
    @PostMapping
    public ResponseEntity<Peticao> save(@RequestBody @Valid PeticaoRequest request) {
 
@@ -34,12 +38,21 @@ public class PeticaoController extends GenericController {
        return new ResponseEntity<Peticao>(peticao, HttpStatus.CREATED);
    }
 
+   @ApiOperation(value = "Serviço responsável por listar todas as petições do sistema.")
    @GetMapping
    public List<Peticao> listarTodos() {
   
        return peticaoService.listarTodos();
    }
 
+    @ApiOperation(value = "Serviço responsável por obter uma petição referente ao Id passado na URL.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Retorna a petição."),
+        @ApiResponse(code = 401, message = "Acesso não autorizado."),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+        @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+        @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+   })
    @GetMapping("/{id}")
    public Peticao obterPorID(@PathVariable Long id) {
 

@@ -23,19 +23,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Multa extends EntidadeAuditavel  {
 
-   @Column
+   @Column(nullable = false, length = 10)
    private String codigo;
 
-   @Column
+   @Column(nullable = false, length = 100)
    private String infracao;
 
-   @Column
+   @Column (nullable = false, length = 20)
    private Double valorMulta;
 
-   @Column
+   @Column(nullable = false, length = 4)
    private Integer pontosDescontados;
 
-   @Column
+   @Column(nullable = false, length = 20)
    private String grauMulta;
 
 }

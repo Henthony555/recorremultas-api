@@ -1,13 +1,16 @@
 package br.com.ifpe.recorremultas.modelo.multa;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import br.com.ifpe.recorremultas.util.entity.GenericService;
+import br.com.ifpe.recorremultas.util.exception.EntidadeNaoEncontradaException;
 
 @Service
 public class MultaService extends GenericService {
@@ -30,7 +33,13 @@ public class MultaService extends GenericService {
 
     public Multa listById(Long id) {
 
-        return repository.findById(id).get();
+      Optional<Multa> consulta = repository.findById(id);
+    
+        if (consulta.isPresent()) {
+            return consulta.get();
+        } else {
+            throw new EntidadeNaoEncontradaException("Multa", id);
+        }
 
     }
 

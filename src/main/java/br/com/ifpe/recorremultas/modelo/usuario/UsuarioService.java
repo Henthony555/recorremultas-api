@@ -1,6 +1,8 @@
 package br.com.ifpe.recorremultas.modelo.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifpe.recorremultas.util.entity.GenericService;
+import br.com.ifpe.recorremultas.util.exception.EntidadeNaoEncontradaException;
+import br.com.ifpe.recorremultas.modelo.peticao.PeticaoRepository;
+import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
+
 
 @Service
 public class UsuarioService extends GenericService {
@@ -15,10 +21,10 @@ public class UsuarioService extends GenericService {
     @Autowired
     private UsuarioRepository repository;
 
-    {/* 
+    
     @Autowired
     private PeticaoRepository peticaoRepository;
-    */}    
+      
 
     @Transactional
     public Usuario save(Usuario usuario) {
@@ -30,14 +36,20 @@ public class UsuarioService extends GenericService {
     public List<Usuario> listarTodos() {
    
      return repository.findAll();
- }
+    }
  
- public Usuario obterPorID(Long id) {
- 
-     return repository.findById(id).get();
- }
+    public Usuario obterPorID(Long id) {
+    
+        Optional<Usuario> consulta = repository.findById(id);
+    
+        if (consulta.isPresent()) {
+            return consulta.get();
+        } else {
+            throw new EntidadeNaoEncontradaException("Usuario", id);
+        }
+    }
 
- @Transactional
+    @Transactional
     public void update(Long id, Usuario usuarioAlterado) {
 
         Usuario usuario = repository.findById(id).get();
@@ -62,7 +74,6 @@ public class UsuarioService extends GenericService {
     }
 
 
-{/* 
 
     @Transactional
     public Peticao adicionarPeticao(Long usuarioId, Peticao peticao) {
@@ -73,7 +84,7 @@ public class UsuarioService extends GenericService {
 
        peticao.setUsuario(usuario);
        peticao.setHabilitado(Boolean.TRUE);
-       PeticaoRepository.save(peticao);
+       peticaoRepository.save(peticao);
       
        //Depois acrescenta o endereço criado ao cliente e atualiza o cliente:
 
@@ -126,7 +137,6 @@ public class UsuarioService extends GenericService {
        this.save(usuario);
    }
 
-*/}
 
 }
 

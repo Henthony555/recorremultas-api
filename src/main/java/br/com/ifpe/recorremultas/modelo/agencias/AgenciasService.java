@@ -1,6 +1,7 @@
 package br.com.ifpe.recorremultas.modelo.agencias;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ifpe.recorremultas.util.entity.GenericService;
+import br.com.ifpe.recorremultas.util.exception.EntidadeNaoEncontradaException;
 
 @Service
 public class AgenciasService extends GenericService {
@@ -29,7 +31,14 @@ public class AgenciasService extends GenericService {
 
     public Agencias obterPorID(Long id) {
 
-        return repository.findById(id).get();
+         Optional<Agencias> consulta = repository.findById(id);
+    
+        if (consulta.isPresent()) {
+            return consulta.get();
+        } else {
+            throw new EntidadeNaoEncontradaException("Agencias", id);
+        }
+
     }
 
     @Transactional
