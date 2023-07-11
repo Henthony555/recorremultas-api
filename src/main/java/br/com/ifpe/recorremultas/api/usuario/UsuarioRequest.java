@@ -1,7 +1,6 @@
 package br.com.ifpe.recorremultas.api.usuario;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.ifpe.recorremultas.modelo.acesso.Usu;
 import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +48,6 @@ public class UsuarioRequest {
     public Usuario build() {
  
         return Usuario.builder()
-                .usu(buildUsu())
                 .nomeCompleto(nomeCompleto)
                 .dataNascimento(dataNascimento) 
                 .cpf(cpf)
@@ -58,7 +55,7 @@ public class UsuarioRequest {
         }
 
         
-    public Usu buildUsu() {
+   {/*  public Usu buildUsu() {
 	
 	return Usu.builder()
 		.username(email)
@@ -66,6 +63,6 @@ public class UsuarioRequest {
 		.roles(Arrays.asList(Usu.ROLE_CLIENTE))
 		.build();
     }
-    
+  */}  
 }
 
