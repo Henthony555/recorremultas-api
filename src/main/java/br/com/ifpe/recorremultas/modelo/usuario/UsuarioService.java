@@ -9,10 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.recorremultas.modelo.acesso.UsuService;
+import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
+import br.com.ifpe.recorremultas.modelo.peticao.PeticaoRepository;
 import br.com.ifpe.recorremultas.util.entity.GenericService;
 import br.com.ifpe.recorremultas.util.exception.EntidadeNaoEncontradaException;
-import br.com.ifpe.recorremultas.modelo.peticao.PeticaoRepository;
-import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
 
 
 @Service
@@ -24,10 +25,15 @@ public class UsuarioService extends GenericService {
     
     @Autowired
     private PeticaoRepository peticaoRepository;
-      
+    
+    @Autowired
+    private UsuService usuService;
 
     @Transactional
     public Usuario save(Usuario usuario) {
+
+        usuService.save(usuario.getUsu());
+
  
         super.preencherCamposAuditoria(usuario);
         return repository.save(usuario);
@@ -56,8 +62,8 @@ public class UsuarioService extends GenericService {
         usuario.setNomeCompleto(usuarioAlterado.getNomeCompleto());
         usuario.setDataNascimento(usuarioAlterado.getDataNascimento());
         usuario.setCpf(usuarioAlterado.getCpf());
-        usuario.setEmail(usuarioAlterado.getEmail());
-        usuario.setSenha(usuarioAlterado.getSenha());
+        //usuario.setEmail(usuarioAlterado.getEmail());
+        //usuario.setSenha(usuarioAlterado.getSenha());
      
         super.preencherCamposAuditoria(usuario);
         repository.save(usuario);

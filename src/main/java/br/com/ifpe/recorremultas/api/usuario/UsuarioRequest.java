@@ -1,15 +1,18 @@
 package br.com.ifpe.recorremultas.api.usuario;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.ifpe.recorremultas.modelo.acesso.Usu;
 import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +40,7 @@ public class UsuarioRequest {
  
     @NotNull(message = "O email é de preenchimento obrigatório")
     @NotBlank(message = "O email é de preenchimento obrigatório")
+    @Email
     private String email;
  
     @NotNull(message = "A senha é de preenchimento obrigatório")
@@ -46,12 +50,22 @@ public class UsuarioRequest {
     public Usuario build() {
  
         return Usuario.builder()
+                .usu(buildUsu())
                 .nomeCompleto(nomeCompleto)
                 .dataNascimento(dataNascimento) 
                 .cpf(cpf)
-                .email(email)
-                .senha(senha)
                 .build();
         }
 
+        
+    public Usu buildUsu() {
+	
+	return Usu.builder()
+		.username(email)
+		.password(password)
+		.roles(Arrays.asList(Usu.ROLE_CLIENTE))
+		.build();
+    }
+    
 }
+
