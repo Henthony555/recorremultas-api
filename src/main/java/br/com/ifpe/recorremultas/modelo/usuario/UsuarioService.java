@@ -9,7 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ifpe.recorremultas.modelo.acesso.UsuService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
+
 import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
 import br.com.ifpe.recorremultas.modelo.peticao.PeticaoRepository;
 import br.com.ifpe.recorremultas.util.entity.GenericService;
@@ -26,13 +29,15 @@ public class UsuarioService extends GenericService {
     @Autowired
     private PeticaoRepository peticaoRepository;
     
+    {/* 
     @Autowired
     private UsuService usuService;
-
+    */}
+    
     @Transactional
     public Usuario save(Usuario usuario) {
 
-        usuService.save(usuario.getUsu());
+        //usuService.save(usuario.getUsu());
 
  
         super.preencherCamposAuditoria(usuario);
@@ -142,6 +147,21 @@ public class UsuarioService extends GenericService {
        usuario.getPeticoes().remove(peticao);
        this.save(usuario);
    }
+
+   
+    public boolean isAuthenticated(String idToken) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String uid = decodedToken.getUid();
+
+            // Verificar se o UID é válido ou fazer outras operações com o usuário autenticado
+            return true;
+
+        } catch (FirebaseAuthException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 }

@@ -34,11 +34,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario extends EntidadeAuditavel {
-    
+    {/* 
     @ManyToOne
     @JoinColumn(nullable = false)
     private Usu usu;
-
+    */}
 
 
 

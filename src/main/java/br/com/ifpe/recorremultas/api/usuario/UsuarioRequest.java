@@ -63,6 +63,11 @@ public class UsuarioRequest {
 		.roles(Arrays.asList(Usu.ROLE_CLIENTE))
 		.build();
     }
-  */}  
+  */}
+
+
+public String getIdToken() {
+    return null;
+}  
 }
 

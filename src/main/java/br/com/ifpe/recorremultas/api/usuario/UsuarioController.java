@@ -1,11 +1,6 @@
 package br.com.ifpe.recorremultas.api.usuario;
 
 import java.util.List;
-import java.util.Optional;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 import javax.validation.Valid;
 
@@ -27,6 +22,9 @@ import br.com.ifpe.recorremultas.modelo.peticao.PeticaoService;
 import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import br.com.ifpe.recorremultas.modelo.usuario.UsuarioService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 @RestController
@@ -38,6 +36,7 @@ public class UsuarioController extends GenericController {
 
     @Autowired
     private PeticaoService peticaoService;
+
 
     @ApiOperation(value = "Serviço responsável por salvar um usuario no sistema.")
     @PostMapping
@@ -107,4 +106,16 @@ public class UsuarioController extends GenericController {
         return ResponseEntity.noContent().build();
     }
 
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UsuarioRequest request) {
+        // Lógica de autenticação do usuário
+        if (usuarioService.isAuthenticated(request.getIdToken())) {
+            // Usuário autenticado com sucesso
+            return ResponseEntity.ok("Usuário autenticado.");
+        } else {
+            // Falha na autenticação do usuário
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação do usuário.");
+        }
+    }
 }
