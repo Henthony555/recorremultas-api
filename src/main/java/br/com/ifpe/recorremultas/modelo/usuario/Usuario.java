@@ -46,6 +46,8 @@ public class Usuario extends EntidadeAuditavel {
     @Fetch(FetchMode.SUBSELECT)
     private List<Peticao> peticoes; 
 
+
+    {/* 
     @Column(nullable = false, length = 100)
     private String nomeCompleto;
  
@@ -54,14 +56,14 @@ public class Usuario extends EntidadeAuditavel {
  
     @Column(unique = true)
     private String cpf;
- 
-    {/* 
+    
+    */} 
     @Column(nullable = false)
     private String email;
     
     @Column(nullable = false)
     private String senha;
 
-    */} 
+    
 }
    

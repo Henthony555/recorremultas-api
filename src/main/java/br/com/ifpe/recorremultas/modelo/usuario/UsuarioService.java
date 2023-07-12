@@ -64,11 +64,11 @@ public class UsuarioService extends GenericService {
     public void update(Long id, Usuario usuarioAlterado) {
 
         Usuario usuario = repository.findById(id).get();
-        usuario.setNomeCompleto(usuarioAlterado.getNomeCompleto());
+    {/* usuario.setNomeCompleto(usuarioAlterado.getNomeCompleto());
         usuario.setDataNascimento(usuarioAlterado.getDataNascimento());
-        usuario.setCpf(usuarioAlterado.getCpf());
-        //usuario.setEmail(usuarioAlterado.getEmail());
-        //usuario.setSenha(usuarioAlterado.getSenha());
+        usuario.setCpf(usuarioAlterado.getCpf()); */}
+        usuario.setEmail(usuarioAlterado.getEmail());
+        usuario.setSenha(usuarioAlterado.getSenha());
      
         super.preencherCamposAuditoria(usuario);
         repository.save(usuario);
@@ -148,6 +148,7 @@ public class UsuarioService extends GenericService {
        this.save(usuario);
    }
 
+   
    
     public boolean isAuthenticated(String idToken) {
         try {

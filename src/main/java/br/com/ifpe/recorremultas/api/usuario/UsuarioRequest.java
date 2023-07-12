@@ -48,10 +48,9 @@ public class UsuarioRequest {
     public Usuario build() {
  
         return Usuario.builder()
-                .nomeCompleto(nomeCompleto)
-                .dataNascimento(dataNascimento) 
-                .cpf(cpf)
-                .build();
+            .email(email)
+            .senha(senha)
+            .build();
         }
 
         
