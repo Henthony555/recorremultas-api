@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.recorremultas.api.peticao.PeticaoRequest;
-import br.com.ifpe.recorremultas.modelo.peticao.Peticao;
-import br.com.ifpe.recorremultas.modelo.peticao.PeticaoService;
 import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import br.com.ifpe.recorremultas.modelo.usuario.UsuarioService;
 import br.com.ifpe.recorremultas.util.entity.GenericController;
@@ -33,9 +30,6 @@ public class UsuarioController extends GenericController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private PeticaoService peticaoService;
 
 
     @ApiOperation(value = "Serviço responsável por salvar um usuario no sistema.")
@@ -81,41 +75,4 @@ public class UsuarioController extends GenericController {
         return ResponseEntity.ok().build();
     }
 
-
-
-    @PostMapping("/peticao/{usuarioId}")
-    public ResponseEntity<Peticao> adicionarPeticao(@PathVariable("usuarioId") Long usuarioId,
-            @RequestBody @Valid PeticaoRequest request) {
-
-        Peticao peticao = usuarioService.adicionarPeticao(usuarioId, request.build());
-        return new ResponseEntity<Peticao>(peticao, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/peticao/{peticaoId}")
-    public ResponseEntity<Peticao> atualizarPeticao(@PathVariable("peticaoId") Long peticaoId,
-            @RequestBody PeticaoRequest request) {
-
-        Peticao peticao = usuarioService.atualizarPeticao(peticaoId, request.build());
-        return new ResponseEntity<Peticao>(peticao, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/peticao/{peticaoId}")
-    public ResponseEntity<Void> removerPeticao(@PathVariable("peticaoId") Long peticaoId) {
-
-        usuarioService.removerPeticao(peticaoId);
-        return ResponseEntity.noContent().build();
-    }
-
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UsuarioRequest request) {
-        // Lógica de autenticação do usuário
-        if (usuarioService.isAuthenticated(request.getIdToken())) {
-            // Usuário autenticado com sucesso
-            return ResponseEntity.ok("Usuário autenticado.");
-        } else {
-            // Falha na autenticação do usuário
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação do usuário.");
-        }
-    }
 }

@@ -2,8 +2,8 @@ package br.com.ifpe.recorremultas.api.peticao;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -64,6 +64,8 @@ public class PeticaoRequest {
    @NotBlank(message = "A justificativa é de preenchimento obrigatório")
    private String justificativaCancelamento;
 
+   private String id_usuario;
+
    public Peticao build() {
 
        return Peticao.builder()
@@ -84,6 +86,7 @@ public class PeticaoRequest {
                .orgaoEmissor(orgaoEmissor)
                .notificacao(notificacao)
                .justificativaCancelamento(justificativaCancelamento)
+               .id_usuario(id_usuario)
                .build();
               
    }

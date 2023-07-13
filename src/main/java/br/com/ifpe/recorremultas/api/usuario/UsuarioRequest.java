@@ -53,20 +53,6 @@ public class UsuarioRequest {
             .build();
         }
 
-        
-   {/*  public Usu buildUsu() {
-	
-	return Usu.builder()
-		.username(email)
-		.password(password)
-		.roles(Arrays.asList(Usu.ROLE_CLIENTE))
-		.build();
-    }
-  */}
-
-
-public String getIdToken() {
-    return null;
-}  
+ 
 }
 

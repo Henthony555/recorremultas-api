@@ -4,14 +4,10 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.com.ifpe.recorremultas.modelo.usuario.Usuario;
 import br.com.ifpe.recorremultas.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,10 +27,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Peticao extends EntidadeAuditavel {
    
-   
+   {/* 
    @JsonIgnore
    @ManyToOne
    private Usuario usuario;
+   */}
 
    @Column(nullable = false, length = 100)
    private String nomeCompleto;
@@ -70,5 +67,7 @@ public class Peticao extends EntidadeAuditavel {
    private String notificacao;
    @Column(nullable = false)
    private String justificativaCancelamento;
+   @Column
+   private String id_usuario;
 
 }

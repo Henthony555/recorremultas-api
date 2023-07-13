@@ -2,8 +2,6 @@ package br.com.ifpe.recorremultas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class RecorremultasApiApplication {
@@ -11,11 +9,5 @@ public class RecorremultasApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RecorremultasApiApplication.class, args);
 	}
-
-	@Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-	  return new BCryptPasswordEncoder();
-    }
-
 
 }
