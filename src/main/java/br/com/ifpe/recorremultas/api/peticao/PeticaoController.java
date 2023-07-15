@@ -59,6 +59,11 @@ public class PeticaoController extends GenericController {
        return peticaoService.obterPorID(id);
    }
 
+        @GetMapping("/usuario/{id_usuario}")
+        public List<Peticao> listarPeticaoPorUsuario(@PathVariable String id_usuario) {
+            return peticaoService.listarPeticaoPorUsuario(id_usuario);
+        }
+
    @PutMapping("/{id}")
    public ResponseEntity<Peticao>update(@PathVariable("id") Long id, @RequestBody PeticaoRequest request) {
 

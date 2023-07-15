@@ -32,6 +32,11 @@ public class PeticaoService extends GenericService {
         return repository.findById(id).get();
     }
 
+    public List<Peticao> listarPeticaoPorUsuario(String id_usuario) {
+        return repository.findAllById(id_usuario);
+    
+    }
+
     @Transactional
     public void update(Long id, Peticao peticaoAlterado) {
 

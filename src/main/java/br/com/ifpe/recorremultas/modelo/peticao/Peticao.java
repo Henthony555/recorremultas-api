@@ -59,7 +59,7 @@ public class Peticao extends EntidadeAuditavel {
    private String renavam;
    @Column
    private String chassi;
-   @Column
+   @Column(name = "dataMulta")
    private LocalDate dataMulta;
    @Column
    private String orgaoEmissor;
