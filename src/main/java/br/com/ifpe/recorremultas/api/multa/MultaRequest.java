@@ -24,11 +24,9 @@ public class MultaRequest {
     private String infracao;
  
     @NotNull(message = "O valor da multa é de preenchimento obrigatório")
-    @NotBlank(message = "O valor da multa é de preenchimento obrigatório")
     private Double valorMulta;
  
     @NotNull(message = "Os pontos descontados são de preenchimento obrigatório")
-    @NotBlank(message = "Os pontos descontados são de preenchimento obrigatório")
     private Integer pontosDescontados;
  
     @NotNull(message = "O grau da multa é de preenchimento obrigatório")
